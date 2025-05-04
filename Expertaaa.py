@@ -104,6 +104,63 @@ class HematologyDiagnosis(KnowledgeEngine):
         self.declare(Fact(disease="Hereditary Spherocytosis",
                           explanation="A genetic condition causing abnormal red blood cells that break down easily, leading to anemia",
                           recommendation="Requires blood tests and possible splenectomy"))
+      
+    # Iron Deficiency Anemia
+    @Rule(SymptomsList(symptoms=MATCH.symptoms),
+          TEST(lambda symptoms: all(s in symptoms for s in ["fatigue", "paleness"])))
+    def iron_deficiency_anemia_simple(self):
+        self.declare(Fact(disease="Iron Deficiency Anemia",
+                          explanation="Low iron levels causing fatigue and pale skin.",
+                          recommendation="Consult a hematologist and test for iron levels."))
+
+    # Megaloblastic Anemia
+    @Rule(SymptomsList(symptoms=MATCH.symptoms),
+          TEST(lambda symptoms: all(s in symptoms for s in ["fatigue", "fragile nails"])))
+    def megaloblastic_anemia_simple(self):
+        self.declare(Fact(disease="Megaloblastic Anemia",
+                          explanation="B12 or folate deficiency affecting red blood cell formation.",
+                          recommendation="Test for B12 and folic acid levels."))
+
+    # Folic Acid Deficiency Anemia
+    @Rule(SymptomsList(symptoms=MATCH.symptoms),
+          TEST(lambda symptoms: all(s in symptoms for s in ["fatigue", "yellow skin"])))
+    def folic_acid_deficiency_anemia(self):
+        self.declare(Fact(disease="Folic Acid Deficiency Anemia",
+                          explanation="Lack of folate causing anemia symptoms.",
+                          recommendation="Check folic acid levels."))
+
+    # Vitamin B12 Deficiency Anemia
+    @Rule(SymptomsList(symptoms=MATCH.symptoms),
+          TEST(lambda symptoms: all(s in symptoms for s in ["fatigue", "sore tongue"])))
+    def b12_deficiency_anemia(self):
+        self.declare(Fact(disease="Vitamin B12 Deficiency Anemia",
+                          explanation="B12 deficiency affecting blood cell production.",
+                          recommendation="Request a B12 test and consult a doctor."))
+
+    # Aplastic Anemia
+    @Rule(SymptomsList(symptoms=MATCH.symptoms),
+          TEST(lambda symptoms: all(s in symptoms for s in ["fatigue", "fever"])))
+    def aplastic_anemia(self):
+        self.declare(Fact(disease="Aplastic Anemia",
+                          explanation="Bone marrow fails to produce enough blood cells.",
+                          recommendation="Complete blood count and bone marrow biopsy."))
+
+    # Hemolytic Anemia
+    @Rule(SymptomsList(symptoms=MATCH.symptoms),
+          TEST(lambda symptoms: all(s in symptoms for s in ["fatigue", "bleeding"])))
+    def hemolytic_anemia(self):
+        self.declare(Fact(disease="Hemolytic Anemia",
+                          explanation="Red blood cells are destroyed faster than produced.",
+                          recommendation="Test for Coombs and bilirubin levels."))
+
+    # Anemia of Chronic Disease
+    @Rule(SymptomsList(symptoms=MATCH.symptoms),
+          TEST(lambda symptoms: all(s in symptoms for s in ["fatigue", "bruises"])))
+    def chronic_disease_anemia(self):
+        self.declare(Fact(disease="Anemia of Chronic Disease",
+                          explanation="Chronic illness interferes with red blood cell production.",
+                          recommendation="Evaluate for chronic infections or kidney disease."))
+
 
 def get_diagnosis(symptoms):
     engine = HematologyDiagnosis()
